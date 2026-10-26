@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Overview — CivicFunds</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,600&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <div class="brand">
+      <b>CivicFunds</b>
+      <span>Public Money. Real Projects. Clear Answers.</span>
+    </div>
+    <div class="scope" id="scope">Northeast Florida · Duval, Clay &amp; Nassau</div>
+  </div>
+</header>
+
+<nav class="nav">
+  <div class="wrap">
+    <a href="index.html">Search</a>
+    <a href="overview.html" class="on">Overview</a>
+    <a href="about.html">About this data</a>
+  </div>
+</nav>
+
+<main class="wrap">
+
+  <section class="ohead">
+    <h1>What is indexed</h1>
+    <p>
+      Every figure on this page is a count of <b>records</b>. None of them is a sum of
+      money, and there is no endpoint behind this page that could produce one — the
+      records measure different things, so a combined dollar figure would describe
+      nothing that exists.
+    </p>
+  </section>
+
+  <section class="cards" id="cards"></section>
+  <section class="panels" id="panels"></section>
+
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <p>
+      <b>Every figure here comes from a government record</b>, and every record keeps the
+      URL it came from and the date it was fetched. Where a source published nothing,
+      CivicFunds says so rather than filling the gap.
+    </p>
+    <p class="small">
+      Counts of records are not a proxy for dollars. One federal formula programme can
+      arrive as a single record covering many projects, while a state work programme files
+      one row per phase per year. A tall bar means more rows, not more money.
+    </p>
+  </div>
+</footer>
+
+<script src="overview.js"></script>
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CivicFunds — Public Money. Real Projects. Clear Answers.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,600&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <div class="brand">
+      <b>CivicFunds</b>
+      <span>Public Money. Real Projects. Clear Answers.</span>
+    </div>
+    <div class="scope" id="scope">Northeast Florida · Duval, Clay &amp; Nassau</div>
+  </div>
+</header>
+
+<nav class="nav">
+  <div class="wrap">
+    <a href="index.html" class="on">Search</a>
+    <a href="overview.html">Overview</a>
+    <a href="about.html">About this data</a>
+  </div>
+</nav>
+
+<main class="wrap">
+
+  <!-- ============ SEARCH ============ -->
+  <section class="hero">
+    <h1>Who paid for the work on your street?</h1>
+    <p class="lede">
+      If something is being built near you, probably more than one government is paying
+      for it. Each one records it in its own system, under its own name, in its own units.
+      Search what CivicFunds has indexed so far.
+    </p>
+
+    <form class="searchbar" id="form" role="search">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="7" cy="7" r="4.5"/><path d="m10.5 10.5 3 3"/></svg>
+      <input id="q" name="q" autocomplete="off" aria-label="Search funding records"
+             placeholder="Try “Jacksonville”, “FDOT”, or a CFDA number…">
+      <button type="submit">Search</button>
+    </form>
+
+    <div class="kinds">
+      <span class="kl">Four kinds of thing work</span>
+      <button class="ex" data-q="Jacksonville">a place</button>
+      <button class="ex" data-q="bridge">a project</button>
+      <button class="ex" data-q="City of Jacksonville">an agency</button>
+      <button class="ex" data-q="CFDA 14.218">a government number</button>
+    </div>
+  </section>
+
+  <!-- ============ RESULTS ============ -->
+  <section id="results" hidden></section>
+
+  <!-- ============ DETAIL ============ -->
+  <section id="detail" hidden></section>
+
+  <!-- ============ COVERAGE ============ -->
+  <section class="coverage" id="coverage" hidden></section>
+
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <p>
+      <b>Every figure here comes from a government record</b>, and every record keeps the
+      URL it came from and the date it was fetched. Where a source published nothing,
+      CivicFunds says so rather than filling the gap.
+    </p>
+    <p class="small">
+      CivicFunds indexes three whole counties — Duval, Clay and Nassau. That is not the
+      same shape as a congressional district: Florida's 4th covers all of Clay, all of
+      Nassau, and only the part of Duval west of the St. Johns River.
+    </p>
+  </div>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>

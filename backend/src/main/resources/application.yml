@@ -1,0 +1,65 @@
+spring:
+  application:
+    name: civicfunds
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/civicfunds}
+    username: ${SPRING_DATASOURCE_USERNAME:civicfunds}
+    password: ${SPRING_DATASOURCE_PASSWORD:civicfunds}
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        jdbc.time_zone: UTC
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+  jackson:
+    default-property-inclusion: non_null
+
+server:
+  port: 8080
+  error:
+    include-message: always
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+  api-docs:
+    path: /v3/api-docs
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+
+logging:
+  level:
+    com.civicfunds: INFO
+
+civicfunds:
+  admin:
+    username: ${CIVICFUNDS_ADMIN_USERNAME:admin}
+    password: ${CIVICFUNDS_ADMIN_PASSWORD:admin}
+  ai:
+    enabled: ${CIVICFUNDS_AI_ENABLED:false}
+  cors:
+    allowed-origins: http://localhost:3000,http://localhost:5173
+  usaspending:
+    base-url: https://api.usaspending.gov
+    state-code: FL
+    # Florida's 4th Congressional District: Duval, Clay, Nassau - three whole
+    # counties. THREE digits each; the five-digit FIPS forms (12031/12019/12089)
+    # appear only in bulk-download output and return zero rows here.
+    county-codes:
+      - "031"   # Duval  - Jacksonville
+      - "019"   # Clay   - Orange Park, Fleming Island, Green Cove Springs
+      - "089"   # Nassau - Fernandina Beach, Yulee
+    page-size: 100        # API maximum
+    max-pages: 200        # 20,000 records; the offset cap is 50,000
+    connect-timeout: 10s
+    read-timeout: 60s
+    max-retries: 3
+    retry-backoff: 2s

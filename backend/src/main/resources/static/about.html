@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>About this data — CivicFunds</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,600&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <div class="brand">
+      <b>CivicFunds</b>
+      <span>Public Money. Real Projects. Clear Answers.</span>
+    </div>
+    <div class="scope">Northeast Florida · Duval, Clay &amp; Nassau</div>
+  </div>
+</header>
+
+<nav class="nav">
+  <div class="wrap">
+    <a href="index.html">Search</a>
+    <a href="overview.html">Overview</a>
+    <a href="about.html" class="on">About this data</a>
+  </div>
+</nav>
+
+<main class="wrap prose">
+
+  <h1>What CivicFunds has, and what it doesn't</h1>
+  <p>
+    A tool that only shows you what it found is easy to mistake for a tool that found
+    everything. This page is here so that mistake is harder to make.
+  </p>
+
+  <h2>County scope, not district scope</h2>
+  <div class="note">
+    <p>
+      CivicFunds indexes <b>three whole counties</b> — Duval, Clay and Nassau. That is
+      deliberately not the same shape as a congressional district, and the difference
+      matters enough to state plainly.
+    </p>
+    <p>
+      <b>Florida's 4th District</b> covers all of Clay, all of Nassau, and the part of
+      Duval <b>west of the St. Johns River</b>. The rest of Duval — southeast
+      Jacksonville — is <b>Florida's 5th District</b>, together with all of St. Johns
+      County, which this index does not cover at all.
+    </p>
+    <p>
+      So this index is a <i>superset</i> of FL-04 within these counties and a
+      <i>subset</i> of FL-05. Every source here filters on county, because county is
+      what the federal and state systems accept. Congressional district would have to
+      be computed per project by point-in-polygon, and that is not built yet — so where
+      a district has not been tested, the app says so rather than naming one.
+    </p>
+  </div>
+
+  <h2>The sources</h2>
+  <p>
+    Six were planned. Three are loaded. The three that are missing are named here
+    rather than left as a silence.
+  </p>
+
+  <table class="src">
+    <thead>
+      <tr><th>Level</th><th>Source</th><th>How it is read</th><th>State</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Federal</td>
+        <td><b>USAspending.gov</b>
+            <small>Contracts, IDVs, grants, loans, other financial assistance and
+            direct payments with a place of performance in the three counties</small></td>
+        <td>REST API, no key required, six award-type groups fetched separately</td>
+        <td><b>Loaded</b></td>
+      </tr>
+      <tr>
+        <td>Federal</td>
+        <td><b>FHWA Eastern Federal Lands TIP</b>
+            <small>Federal Lands Access Program projects</small></td>
+        <td>Read from the published PDF by a person</td>
+        <td><b>One record</b></td>
+      </tr>
+      <tr>
+        <td>State</td>
+        <td><b>FDOT work programme and obligations report</b>
+            <small>Via the North Florida TPO's Transportation Improvement Program and
+            the Annual Obligations Report</small></td>
+        <td>Read from the published PDFs by a person</td>
+        <td><b>Sample only</b></td>
+      </tr>
+      <tr>
+        <td>Regional</td>
+        <td><b>North Florida TPO long range plan</b></td>
+        <td>No adapter</td>
+        <td>Not loaded</td>
+      </tr>
+      <tr>
+        <td>Local</td>
+        <td><b>City of Jacksonville budget and capital improvement plan</b>
+            <small>Jacksonville and Duval County are one consolidated government</small></td>
+        <td>No adapter — published as PDFs and ordinances</td>
+        <td>Not loaded</td>
+      </tr>
+      <tr>
+        <td>Local</td>
+        <td><b>Duval County Public Schools capital plan</b></td>
+        <td>No adapter</td>
+        <td>Not loaded</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>Fetched by a program, or typed in by a person</h2>
+  <p>
+    Most records here arrived through an adapter that called a government API. A few
+    were read off a published PDF and typed in by hand, because no adapter exists for
+    those sources yet. Those records carry <b>MANUAL</b> in their source system, visible
+    on screen, so the distinction is never hidden. The figures and citations are equally
+    real; the path they took is not the same, and pretending otherwise would be the
+    first small lie.
+  </p>
+
+  <h2>Why there is never a total</h2>
+  <p>
+    Public spending figures measure different things. An <b>appropriation</b> is budget
+    authority a legislature enacted. An <b>obligation</b> is money an agency has legally
+    committed. An <b>outlay</b> is cash that has actually left the treasury. A
+    <b>programmed</b> amount is a line in a multi-year plan that gets revised every year.
+    A loan's face value is none of those.
+  </p>
+  <p>
+    Adding them produces a number that is not true in any sense. CivicFunds will not do
+    it, and the rule is enforced in the code rather than left to discipline: the
+    <code>Amount</code> type carries its measurement class, and adding two amounts of
+    different classes throws an exception. You cannot write code in this project that
+    sums an obligation and an outlay.
+  </p>
+  <p>
+    There is a second reason, which is subtler. Even two figures of the same class can
+    be the same dollars seen twice — federal money passed through a state work programme
+    appears in both governments' books. Until the relationship between two records has
+    been established, adding them risks double-counting. So the app shows the ledger and
+    says what it does not know.
+  </p>
+
+  <h2>What was rejected on the way in</h2>
+  <p>
+    USAspending publishes county-level rollups with the recipient replaced by
+    <code>MULTIPLE RECIPIENTS</code>, and privacy-suppressed rows reading
+    <code>REDACTED DUE TO PII</code>. Both always carry a county code, so a naive county
+    filter selects exactly those. They are not projects, and mapping them would put
+    things on screen that look real and are not. They are detected, dropped and counted
+    during ingestion.
+  </p>
+
+  <h2>Records are not dollars</h2>
+  <p>
+    Counting records is not a proxy for counting money. One federal formula programme
+    can arrive as a single record covering many projects, while a state work programme
+    files one row per phase per year. Wherever this site shows a count, it is a count of
+    rows in an index, and it says so.
+  </p>
+
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <p>
+      <b>Every figure here comes from a government record</b>, and every record keeps the
+      URL it came from and the date it was fetched. Where a source published nothing,
+      CivicFunds says so rather than filling the gap.
+    </p>
+  </div>
+</footer>
+
+</body>
+</html>
