@@ -1,0 +1,43 @@
+services:
+  db:
+    image: postgis/postgis:16-3.4
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-civicfunds}
+      POSTGRES_USER: ${POSTGRES_USER:-civicfunds}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-civicfunds}
+    ports:
+      - "5432:5432"
+    volumes:
+      - civicfunds_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-civicfunds} -d ${POSTGRES_DB:-civicfunds}"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  backend:
+    build: ./backend
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/${POSTGRES_DB:-civicfunds}
+      SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER:-civicfunds}
+      SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD:-civicfunds}
+      CIVICFUNDS_ADMIN_USERNAME: ${CIVICFUNDS_ADMIN_USERNAME:-admin}
+      CIVICFUNDS_ADMIN_PASSWORD: ${CIVICFUNDS_ADMIN_PASSWORD:-admin}
+      CIVICFUNDS_AI_ENABLED: ${CIVICFUNDS_AI_ENABLED:-false}
+    ports:
+      - "8080:8080"
+
+  frontend:
+    build: ./frontend
+    depends_on:
+      - backend
+    environment:
+      VITE_API_BASE: http://localhost:8080
+    ports:
+      - "3000:3000"
+
+volumes:
+  civicfunds_pgdata:
